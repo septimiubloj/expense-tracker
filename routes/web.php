@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,12 +26,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 
-Route::get('/expenses', function() {
-    return Inertia::render('Expenses');
-})->middleware(['auth', 'verified'])->name('expenses');
+    Route::get('/expenses', function() {
+        return Inertia::render('Expenses');
+    })->middleware(['auth', 'verified'])->name('expenses');
+
+    Route::resource('users', UserController::class);
+    Route::resource('accounts', AccountController::class);
+});
 
 require __DIR__.'/auth.php';
