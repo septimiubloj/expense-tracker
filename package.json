@@ -25,5 +25,9 @@
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "tailwindcss": "^2.1.2"
+    },
+    "dependencies": {
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "classnames": "^2.3.1"
     }
 }
