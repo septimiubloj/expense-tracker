@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -31,12 +32,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/expenses', function() {
-        return Inertia::render('Expenses');
-    })->middleware(['auth', 'verified'])->name('expenses');
-
     Route::resource('users', UserController::class);
     Route::resource('accounts', AccountController::class);
+    Route::resource('transactions', TransactionController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -36,10 +36,10 @@ export default function Authenticated({ auth, header, children }) {
                   Accounts
                 </NavLink>
                 <NavLink
-                  href={route("expenses")}
-                  active={route().current("expenses")}
+                  href={route("transactions.index")}
+                  active={route().current("transactions.*")}
                 >
-                  Expenses
+                  Transactions
                 </NavLink>
                 <NavLink
                   href={route("users.index")}

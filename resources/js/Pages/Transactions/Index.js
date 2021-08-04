@@ -1,29 +1,24 @@
-import Authenticated from "@/Layouts/Authenticated";
-import React from "react";
-import { InertiaLink } from "@inertiajs/inertia-react";
+import Authenticated from '@/Layouts/Authenticated';
+import React from 'react';
+import {InertiaLink} from '@inertiajs/inertia-react';
 
 export default function Index(props) {
-  const {accounts} = props
+  const {transactions} = props
   return (
     <Authenticated
       auth={props.auth}
       errors={props.errors}
-      header={
-        <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          Accounts
-        </h2>
-      }
+      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Transactions</h2>}
     >
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
           <div className="flex items-center justify-between mb-6">
             <InertiaLink
               className="btn-gray focus:outline-none hover:bg-gray-600 focus:bg-gray-600"
-              href={route('accounts.create')}
+              href={route('transactions.create')}
             >
-              <span>Create</span>
-              <span className="hidden md:inline"> account</span>
+              <span>Log</span>
+              <span className="hidden md:inline"> transaction</span>
             </InertiaLink>
           </div>
 
@@ -42,19 +37,31 @@ export default function Index(props) {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                  Amount
+                    Description
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Current amount
+                    Value
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Currency
+                    Category
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Account
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Book
                   </th>
                   <th
                     scope="col"
@@ -65,24 +72,24 @@ export default function Index(props) {
                 </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                {accounts.map((account) => (
-                  <tr key={account.id}>
+                {transactions.map((transaction) => (
+                  <tr key={transaction.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="text-sm font-medium text-gray-900">{account.title}</div>
+                        <div className="text-sm font-medium text-gray-900">{transaction.title}</div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{account.amount}</div>
+                      <div className="text-sm text-gray-500">{transaction.amount}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{account.currentAmount}</div>
+                      <div className="text-sm text-gray-500">{transaction.currentAmount}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{account.currency}</div>
+                      <div className="text-sm text-gray-500">{transaction.currency}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <InertiaLink href={account.edit_url} className="text-indigo-600 hover:text-indigo-900">Edit</InertiaLink>
+                      {/*<InertiaLink href={transaction.edit_url} className="text-indigo-600 hover:text-indigo-900">Edit</InertiaLink>*/}
                     </td>
                   </tr>
                 ))}
