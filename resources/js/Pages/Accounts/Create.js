@@ -4,11 +4,13 @@ import {InertiaLink} from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
 
 export default function Create(props) {
+  const currencies = ['USD', 'EUR', 'RON']
+  const defaultCurrency = currencies[0]
   const [values, setValues] = useState({
     title: '',
     amount: '',
     currentAmount: '',
-    currency: '',
+    currency: defaultCurrency,
   })
 
   function handleChange(e) {
@@ -96,9 +98,9 @@ export default function Create(props) {
                                     value={values.currency}
                                     className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
                                   >
-                                    <option>USD</option>
-                                    <option>EUR</option>
-                                    <option>RON</option>
+                                    {currencies.map(item => (
+                                      <option key={item} value={item}>{item}</option>
+                                    ))}
                                   </select>
                                 </div>
                               </div>

@@ -36,6 +36,12 @@ export default function Authenticated({ auth, header, children }) {
                   Accounts
                 </NavLink>
                 <NavLink
+                  href={route("categories.index")}
+                  active={route().current("categories.*")}
+                >
+                  Categories
+                </NavLink>
+                <NavLink
                   href={route("transactions.index")}
                   active={route().current("transactions.*")}
                 >

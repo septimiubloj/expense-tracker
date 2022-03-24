@@ -3,15 +3,15 @@ import React, {useState} from 'react'
 import {InertiaLink, usePage} from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
 
-export default function Create(props) {
-  const {accounts, books, categories} = usePage().props
+export default function Edit(props) {
+  const {transaction, accounts, books, categories} = usePage().props
   const [values, setValues] = useState({
-    title: '',
-    description: '',
-    value: '',
-    category_id: '',
-    account_id: '',
-    book_id: '',
+    title: transaction.title,
+    description: transaction.description,
+    value: transaction.value,
+    category_id: transaction.category_id,
+    account_id: transaction.account_id,
+    book_id: transaction.book_id,
   })
 
   function handleChange(e) {
@@ -23,9 +23,15 @@ export default function Create(props) {
     }))
   }
 
+  function handleDelete() {
+    if (confirm('Are you sure you want to delete this transaction?')) {
+      Inertia.delete(route('transactions.destroy', transaction.id));
+    }
+  }
+
   function handleSubmit(e) {
     e.preventDefault()
-    Inertia.post(route('transactions.store'), values)
+    Inertia.put(route('transactions.update', transaction.id), values)
   }
 
   return (
@@ -181,11 +187,24 @@ export default function Create(props) {
                           </div>
                         </div>
                         <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                          <InertiaLink
+                            href={route('transactions.index')}
+                            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 mr-3"
+                          >
+                            Cancel
+                          </InertiaLink>
+                          <button
+                            type="button"
+                            onClick={handleDelete}
+                            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mr-3"
+                          >
+                            Delete
+                          </button>
                           <button
                             type="submit"
                             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
-                            Save
+                            Update
                           </button>
                         </div>
                       </div>
