@@ -147,6 +147,30 @@ export default function Authenticated({ auth, header, children }) {
             >
               Dashboard
             </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href={route("accounts.index")}
+              active={route().current("accounts.*")}
+            >
+              Accounts
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href={route("categories.index")}
+              active={route().current("categories.*")}
+            >
+              Categories
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href={route("transactions.index")}
+              active={route().current("transactions.*")}
+            >
+              Transactions
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href={route("users.index")}
+              active={route().current("users.*")}
+            >
+              Users
+            </ResponsiveNavLink>
           </div>
 
           <div className="pt-4 pb-1 border-t border-gray-200">

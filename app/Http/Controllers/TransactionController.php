@@ -53,7 +53,8 @@ class TransactionController extends Controller
     {
         $transaction = new Transaction;
         $transaction->fill($request->all());
-        $transaction->save();
+        $transaction->account->currentAmount -= $request->value;
+        $transaction->push();
 
         return Redirect::route('transactions.index')->with('success', 'Transaction saved');
     }
