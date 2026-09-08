@@ -7,6 +7,7 @@ use App\Http\Controllers\BooksController;
 use App\Http\Controllers\BudgetAllocationsController;
 use App\Http\Controllers\BudgetPeriodsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\TransfersController;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::inertia('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('books', BooksController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('books.transfers', TransfersController::class)->only(['store', 'update', 'destroy']);

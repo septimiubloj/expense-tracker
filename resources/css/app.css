@@ -1,6 +1,6 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@import 'tw-animate-css';
+@import "tw-animate-css";
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -9,8 +9,8 @@
 
 @theme {
     --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -61,42 +61,48 @@
 }
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    --sage: oklch(0.9 0.04 145);
+    --lilac: oklch(0.91 0.035 300);
+    --apricot: oklch(0.92 0.045 65);
+    --background: oklch(0.975 0.009 85);
+    --foreground: oklch(0.27 0.025 155);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
+    --primary: oklch(0.39 0.065 158);
     --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
+    --secondary: oklch(0.94 0.024 150);
     --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
+    --muted: oklch(0.95 0.009 85);
+    --muted-foreground: oklch(0.49 0.018 155);
+    --accent: oklch(0.935 0.025 150);
     --accent-foreground: oklch(0.205 0 0);
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.87 0 0);
+    --border: oklch(0.9 0.012 85);
+    --input: oklch(0.86 0.018 85);
+    --ring: oklch(0.56 0.08 158);
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
+    --radius: 0.875rem;
+    --sidebar: oklch(0.955 0.012 85);
     --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary: oklch(0.39 0.065 158);
     --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent: oklch(0.9 0.028 150);
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
 }
 
 .dark {
+    --sage: oklch(0.32 0.035 145);
+    --lilac: oklch(0.32 0.035 300);
+    --apricot: oklch(0.32 0.035 65);
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.145 0 0);
@@ -138,5 +144,123 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+@layer components {
+    .workspace-page {
+        @apply mx-auto w-full max-w-[1440px] flex-1 p-2 sm:p-5 lg:p-8;
+        animation: page-arrive 260ms ease-out both;
+    }
+
+    .workspace-home {
+        @apply mx-auto flex max-w-6xl flex-col gap-10 p-4;
+    }
+
+    .eyebrow {
+        @apply text-muted-foreground text-[10px] font-semibold tracking-[0.16em];
+    }
+
+    .workspace-welcome {
+        @apply relative isolate overflow-hidden rounded-3xl border px-7 py-10 sm:px-10 sm:py-12;
+        background: radial-gradient(ellipse at 95% 0%, var(--sage), transparent 65%), var(--card);
+    }
+
+    .paper-still-life {
+        @apply absolute top-12 right-10 hidden h-64 w-64 xl:block;
+    }
+
+    .paper-note {
+        @apply absolute flex h-52 w-44 flex-col gap-6 rounded-md border p-5 text-[9px] font-semibold tracking-widest;
+        box-shadow: 0 12px 25px -14px rgb(30 50 35 / 25%);
+    }
+
+    .paper-note-back {
+        @apply top-0 right-0 rotate-12 items-center;
+        background: var(--lilac);
+    }
+
+    .paper-note-front {
+        @apply top-9 left-0 -rotate-12;
+        background: var(--apricot);
+    }
+
+    .note-line {
+        @apply h-px bg-current opacity-20;
+    }
+
+    .note-check {
+        @apply absolute right-4 bottom-4 flex size-8 items-center justify-center rounded-full border border-current/30 text-lg;
+    }
+
+    .book-card {
+        @apply bg-card overflow-hidden rounded-2xl border;
+        transition:
+            transform 180ms ease,
+            box-shadow 180ms ease;
+    }
+
+    .book-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px -22px rgb(30 50 35 / 35%);
+    }
+
+    .book-cover {
+        @apply block border-b p-6 outline-offset-[-4px];
+        background: var(--book-accent);
+    }
+
+    .workspace-page table {
+        @apply bg-card;
+    }
+
+    .workspace-page tbody tr {
+        @apply hover:bg-muted/60 transition-colors;
+    }
+
+    [data-slot="sidebar-inset"] {
+        @apply bg-background;
+    }
+
+    [data-slot="sidebar-menu-button"] {
+        @apply rounded-lg;
+    }
+
+    [data-slot="button"] {
+        transition:
+            background-color 150ms ease,
+            box-shadow 150ms ease,
+            transform 150ms ease;
+    }
+
+    [data-slot="button"]:active:not(:disabled) {
+        transform: scale(0.97);
+    }
+}
+
+@keyframes page-arrive {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .book-card:hover,
+    [data-slot="button"]:active:not(:disabled) {
+        transform: none;
     }
 }

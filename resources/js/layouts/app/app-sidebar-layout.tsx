@@ -10,7 +10,7 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: AppLayo
             <AppSidebar />
             <AppContent variant="sidebar" className="min-w-0 overflow-x-clip">
                 <AppSidebarHeader breadcrumbs={breadcrumbs} />
-                {children}
+                <div className="workspace-page">{children}</div>
             </AppContent>
         </AppShell>
     );

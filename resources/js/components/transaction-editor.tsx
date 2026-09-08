@@ -1,3 +1,4 @@
+import { playConfirmation } from '@/lib/interaction-sound';
 import { Form } from '@inertiajs/react';
 import { useId, useState } from 'react';
 import InputError from '@/components/input-error';
@@ -73,7 +74,10 @@ export default function TransactionEditor({
                         ...data,
                         amount_minor: decimalToMinor(String(data.amount), precision) ?? 'invalid',
                     })}
-                    onSuccess={() => setOpen(false)}
+                    onSuccess={() => {
+                        setOpen(false);
+                        void playConfirmation();
+                    }}
                     className="grid gap-4"
                 >
                     {({ errors, processing }) => (

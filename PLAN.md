@@ -26,7 +26,8 @@ has been implemented and verified, not merely scaffolded.
 - Books own accounts, categories, periods, and transactions; users own books.
 - Transfers are an atomic pair of opposite account movements, with no category.
 - The source spreadsheet stays read-only. Exclude Help and copyright tabs.
-- Defer the Notion-style UX until financial behavior and functional screens work.
+- User reprioritized design foundations on 2026-09-08. Work on the workspace design
+  increment before resuming remaining functional summaries; inline editing stays deferred.
 
 ## 1. Foundation
 
@@ -104,6 +105,16 @@ Source: [Copy of Weekly Money Manager](https://docs.google.com/spreadsheets/d/1e
 
 - [ ] Design the document-width workspace, quiet navigation, inline editing,
   database-style tables, keyboard shortcuts, command menus, and reusable blocks.
+
+Current design increment (user priority, 2026-09-08): shared light palette and
+workspace shell, real book navigation from the dashboard, transaction table polish,
+reduced-motion support, and opt-in save sounds. Design rules live in `DESIGN.md`.
+Verified four dashboard tests / 16 assertions including book ownership isolation,
+Pint, focused PHPStan, application frontend lint, TypeScript, and production build.
+Repository-wide frontend checking reports four existing floating-promise warnings
+in `tests/frontend/money.test.mjs`. No full milestone verification was run.
+Browser review and the later inline-editing work remain open; this does not mark
+milestone 4 or 7 complete.
 
 ## Progress log
 
