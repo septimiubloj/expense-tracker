@@ -1,42 +1,33 @@
 <?php
 
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
+declare(strict_types=1);
+
+use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\BooksController;
+use App\Http\Controllers\BudgetAllocationsController;
+use App\Http\Controllers\BudgetPeriodsController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\TransfersController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::inertia('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::inertia('dashboard', 'dashboard')->name('dashboard');
 
-    Route::resource('accounts', AccountController::class);
-    Route::resource('categories', CategoryController::class);
-    Route::resource('transactions', TransactionController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('books', BooksController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('books.transfers', TransfersController::class)->only(['store', 'update', 'destroy']);
+
+    Route::scopeBindings()->group(function () {
+        Route::resource('books.accounts', AccountsController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::resource('books.categories', CategoriesController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::resource('books.budget-periods', BudgetPeriodsController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::resource('books.budget-periods.allocations', BudgetAllocationsController::class)
+            ->only(['index', 'store', 'update', 'destroy'])
+            ->parameters(['allocations' => 'allocation']);
+        Route::resource('books.transactions', TransactionsController::class)->only(['index', 'store', 'update', 'destroy']);
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__.'/settings.php';
